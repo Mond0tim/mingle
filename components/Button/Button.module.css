@@ -1,0 +1,97 @@
+.btn {
+	
+	--md-ripple-pressed-opacity: 0.3;
+	--md-ripple-hover-color:rgb(0,0,0);
+	--md-ripple-hover-opacity: -0.1;
+	--md-focus-ring-color:var(--mg-neon-hover);
+	--md-focus-ring-shape: var(--button-radius);
+	appearance: none;
+	border-radius: var(--button-radius);
+	height: 48px;
+	padding: 0 20px;
+	border: 1px solid transparent;
+	transition: background 0.2s, color 0.2s, border-color 0.2s;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 16px;
+	line-height: 20px;
+	outline: none;
+	position: relative;
+  }
+
+  .outline {
+	--md-ripple-pressed-color:rgb(169, 98, 217);
+	color: var(--mg-light);
+	border-color: var(--mg-btn-border);
+	
+  }
+  .outline:hover {
+	background: var(--mg-btn-hover);
+	border-color: transparent;
+  }
+  .primary {
+	--md-ripple-pressed-color:rgb(36, 21, 51);
+	color: var(--mg-background);
+	background: var(--mg-neon);
+	border-color: transparent;
+  }
+  .primary:hover {
+	background: var(--mg-neon-hover);
+	border-color: transparent;
+  }
+  .primary:active {
+	border: none;
+  }
+  .primary svg  {
+	fill: var(--mg-background);
+  }
+  .outline {
+	align-items: center;
+	display: flex;
+  }
+  .outline svg {
+	width: 20px;
+  }
+
+  .ghost {
+	--md-ripple-pressed-color:rgb(149, 0, 255);
+	color: var(--mg-light);
+	border-color: transparent;
+  }
+  .ghost:hover {
+	background: rgba(0,0,0,0.3);
+	border-color: transparent;
+  }
+
+  .bold {
+	font-weight: 800;
+	
+  }
+
+  .regular {
+	font-weight: 500;
+  }
+  .light {
+	font-weight: 200;
+  }
+  .geistMono {
+	font-family: var(--font-geist-mono);
+  }
+  .geistSans  {
+	font-family: var(--font-geist-sans);
+  }
+
+  .r_none {
+	--button-radius:0px;
+  }
+  .r_sm {
+	--button-radius:15px;
+  }
+  .r_md {
+	--button-radius:20px;
+  }
+  .r_lg {
+	--button-radius:128px;
+  }

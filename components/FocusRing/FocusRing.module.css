@@ -1,0 +1,7 @@
+.dark {
+	--md-focus-ring-color:var(--mg-neon-hover);
+}
+
+.light {
+	--md-focus-ring-color:var(--mg-neon-hover);
+}

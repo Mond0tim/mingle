@@ -1,0 +1,48 @@
+.trackItem {
+  display: grid !important;
+  align-items: center !important;
+  cursor: pointer;
+  padding: 10px !important;
+  height: auto !important;
+  /* border-bottom: 1px solid #eee; */
+  width: 100% !important;
+  text-align: left;
+  grid-template-columns: 0.5fr 1fr 0.3fr;
+  transition: 0.2s;
+  }
+  
+  .trackItem.playing {
+	background-color: #8e3ef0cc;
+  backdrop-filter: blur(10px);
+  color:var(--mg-background);
+  }
+  .trackItem.playing:hover {
+    background-color: #7935ccaf;
+    backdrop-filter: blur(10px);
+    color:var(--mg-background);
+    }
+  
+  .trackTitle {
+	font-weight: bold;
+  }
+  
+  .trackArtist {
+  }
+  
+  .trackItem img {
+	margin-right: 10px;
+  }
+  
+  .trackItem a {
+	  border: none;
+	  background: none;
+	  padding: 0;
+	  cursor: pointer;
+  }
+  .trackItem a span {
+	  font-size: 24px;
+  }
+  
+  .trackInfoWrapper {
+	  flex-grow: 1;
+  }

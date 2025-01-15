@@ -1,0 +1,43 @@
+.background_canvas {
+		position: relative;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		/* z-index: -1; */
+	  mask-image: linear-gradient(0deg, transparent, rgb(0, 0, 0) 10%, rgb(0, 0, 0) 100%);
+mask-size: 100%;
+mask-position: right center;
+mask-repeat: no-repeat;
+}
+
+.noise_canvas {
+	position: relative;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   z-index: 3;
+   background-image: url("https://mafiko.top/assets/templ/temlplates/EntranceAnimationForImages-main/img/noise.png");
+   background-size: 150px;
+   pointer-events: none;
+ }
+
+ .container {
+position: relative;
+z-index: -1;
+animation: CanvasToScreen 0.6s ease-in-out forwards;
+
+
+ }
+
+ @keyframes CanvasToScreen {
+  from {
+    opacity: 0;
+    filter: brightness(0);
+  }
+  to {
+    opacity: 1;
+    filter: brightness(1);
+  }
+ }

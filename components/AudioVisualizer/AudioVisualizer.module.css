@@ -1,0 +1,108 @@
+.container {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+  }
+  .container #defaultCanvas0 {
+			display: none;
+  }
+
+  .container canvas{
+	position: absolute;
+    left: 50%;
+    top: 100%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -0%);
+     width: 100%; 
+     height: 100%; 
+  }
+  .controls {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	display: flex;
+	gap: 10px;
+	z-index: 10;
+  }
+  
+  .audioButton {
+	border: none;
+	padding: 10px 20px;
+	font-size: 16px;
+	cursor: pointer;
+	background-color: #5b0ff5;
+	color: white;
+	border-radius: 5px;
+  }
+  
+  .audioButton:hover {
+	background-color: #4a0dc4;
+  }
+  
+  .uploadButton {
+	cursor: pointer;
+  }
+  
+  .uploadAnimation {
+	position: absolute;
+	/* убрал top, left, width, height */
+	z-index: 20;
+  }
+  
+  .defaultAnimation {
+	width: 50px;
+	height: 50px;
+  }
+  
+  .defaultAnimationInner {
+	display: flex;
+  }
+  
+  .defaultAnimationInner span {
+	display: block;
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	background-color: #f50fac;
+	animation: pulse 1.5s infinite ease-in-out;
+  }
+  
+  .canvasLoading {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 15;
+  }
+  
+  .defaultCanvasAnimation {
+	width: 50px;
+	height: 50px;
+  }
+  
+  .defaultCanvasAnimationInner {
+	display: flex;
+  }
+  
+  .defaultCanvasAnimationInner span {
+	display: block;
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	background-color: #f50fac;
+	animation: pulse 1.5s infinite ease-in-out;
+  }
+  
+  @keyframes pulse {
+	0% {
+	  transform: scale(0);
+	  opacity: 1;
+	}
+	100% {
+	  transform: scale(1);
+	  opacity: 0;
+	}
+  }
