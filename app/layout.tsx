@@ -21,6 +21,18 @@ const geistMono = localFont({
   variable: "--font-geist-mono",
   weight: "100 900",
 });
+const Oddval = localFont({
+  src: "./fonts/Oddval-SemiBold.woff",
+  variable: "--font-oddval",
+});
+const OddvalItalic = localFont({
+  src: "./fonts/Oddval-SemiBoldItalic.woff",
+  variable: "--font-oddval-italic",
+});
+const Raydis = localFont({
+  src: "./fonts/RAYDIS.woff",
+  variable: "--font-raydis",
+});
 
 export const metadata: Metadata = {
   title: 'Mingle',
@@ -34,7 +46,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${geistSans.variable} ${Oddval.variable} ${Raydis.variable} ${OddvalItalic.variable} ${geistMono.variable} antialiased`}>
         <PlayerProvider initialTracks={initialTracks} initialPlaylists={initialPlaylists}>
           <PlayerWrapper>{children}</PlayerWrapper>
         </PlayerProvider>

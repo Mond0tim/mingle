@@ -82,6 +82,15 @@
   .geistSans  {
 	font-family: var(--font-geist-sans);
   }
+  .oddval  {
+	font-family: var(--font-oddval);
+  }
+  .oddvalItalic {
+	font-family: var(--font-oddval-italic);
+  }
+  .raydis {
+	font-family: var(--font-raydis);
+  }
 
   .r_none {
 	--button-radius:0px;
