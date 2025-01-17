@@ -8,6 +8,8 @@ import LogoIcon from '@/public/icons/LogoIcon.svg'
 import LogoText from '@/public/icons/LogoText.svg'
 
 
+// ЕСТЬ ВОЗМОЖНОСТЬ СЛОМАТЬ ДАННЫЙ КОД, ПРОСЬБА НЕ ТРОГАТЬ ЕГО!!!!!!!!!!!!!
+
 import AudioMotionVisualizer from '@/components/AudioMotionVisualizer/AudioMotionVisualizer';
 import {
   NavigationMenu,
