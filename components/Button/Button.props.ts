@@ -4,7 +4,7 @@ export interface ButtonProps extends DetailedHTMLProps<ButtonHTMLAttributes<HTML
 	children: ReactNode;
 	view?: 'outline' | 'primary' | 'ghost';
 	fontWeight?: 'bold' | 'regular' | 'light';
-	fontFamily?: 'Jost' | 'Geist' | 'GeistMono' | 'PixelSans';
+	fontFamily?: 'Jost' | 'Geist' | 'GeistMono' | 'PixelSans' | 'Oddval' | 'OddvalItalic' | 'Raydis';
 	ButtonRadius?: 'none' | 'sm' | 'md'| 'lg';
 	// arrow?: 'right' | 'down' | 'none';
 }

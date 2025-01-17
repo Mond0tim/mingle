@@ -6,6 +6,9 @@ import { Button } from '@/components/Button/Button';
 import styles from "./page.module.css"
 import LogoIcon from '@/public/icons/LogoIcon.svg'
 import LogoText from '@/public/icons/LogoText.svg'
+import OtherPlay from '@/public/icons/playOtherIcon.svg'
+import OtherPause from '@/public/icons/pauseOtherIcon.svg'
+
 
 
 // ЕСТЬ ВОЗМОЖНОСТЬ СЛОМАТЬ ДАННЫЙ КОД, ПРОСЬБА НЕ ТРОГАТЬ ЕГО!!!!!!!!!!!!!
@@ -22,6 +25,7 @@ import {
   NavigationMenuViewport,
 } from "@/components/ui/navigation-menu"
 import BackgroundCanvas from '@/components/BackgroundCanvas/BackgroundCanvas';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const Home = () => {
   const {
@@ -72,7 +76,8 @@ const Home = () => {
     <>
       <div className={styles.page}>
         <div className={styles.preview}>
-          <div className={styles.controls}>
+          <div className={styles.mingle_controls_container}>
+          <div className={styles.mingle_controls}>
             <div className={styles.logo}>
               <div className={styles.icon}>
                 <LogoIcon/>
@@ -85,9 +90,9 @@ const Home = () => {
           <NavigationMenuList>
             <NavigationMenuItem>
               <NavigationMenuTrigger>
-                <Link href="/playlists">playlists</Link>
+                <Link href="/playlists">плейлисты</Link>
               </NavigationMenuTrigger>
-              <NavigationMenuContent>
+              <NavigationMenuContent className='p-5'>
                 <p>список плейлистов</p>
                 <NavigationMenuLink>Link</NavigationMenuLink>
               </NavigationMenuContent>
@@ -95,13 +100,17 @@ const Home = () => {
           </NavigationMenuList>
         </NavigationMenu>
 </div>
+</div>
 <div className={styles.vibe}>
+  <h1 className={styles.title}>запусти свой вайб</h1>
+  <Skeleton/>
         {wavePlaylist && (
           <Button
             ButtonRadius="lg"
-            view="primary"
-            fontFamily="PixelSans"
+            view="outline"
+            fontFamily='Oddval'
             fontWeight='bold'
+            className={styles.vibe_button}
             onClick={(e) => {
               e.stopPropagation();
               if (playlistIsPlaying?.id === wavePlaylist.id) {
@@ -113,8 +122,9 @@ const Home = () => {
           >
             <span className="material-symbols-outlined">
               {playlistIsPlaying?.id === wavePlaylist.id && playing
-                ? ""
-                : "play_circle"}
+                ? <OtherPause/>
+                : <OtherPlay/>
+                }
                 вайб
             </span>
           </Button>

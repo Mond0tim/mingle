@@ -12,7 +12,7 @@ const pixelifySans = Pixelify_Sans({ subsets: ['latin', 'cyrillic' ]})
 const jost = Jost({ subsets: ['latin', 'cyrillic' ]})
 
 
-export const Button = ({ view = 'primary', fontFamily = 'Jost', ButtonRadius='lg', fontWeight='regular',  children, className, ...props }: ButtonProps): JSX.Element => {
+export const Button = ({ view = 'primary', fontFamily = 'Geist', ButtonRadius='lg', fontWeight='regular',  children, className, ...props }: ButtonProps): JSX.Element => {
 	return (
 		<button
 			className={cn(styles.btn, className, {
@@ -23,6 +23,9 @@ export const Button = ({ view = 'primary', fontFamily = 'Jost', ButtonRadius='lg
 				[styles.geistMono]: fontFamily == 'GeistMono',
 				[jost.className]: fontFamily == 'Jost',
 				[pixelifySans.className]: fontFamily == 'PixelSans',
+				[styles.oddval]: fontFamily == 'Oddval',
+				[styles.oddvalItalic]: fontFamily == 'OddvalItalic',
+				[styles.raydis]: fontFamily == 'Raydis',
 				[styles.bold]: fontWeight == 'bold',
 				[styles.regular]: fontWeight == 'regular',
 				[styles.light]: fontWeight == 'light',
