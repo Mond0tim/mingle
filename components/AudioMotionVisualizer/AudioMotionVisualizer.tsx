@@ -1,3 +1,4 @@
+ /* eslint-disable */
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
 import AudioMotionAnalyzer, { Options } from 'audiomotion-analyzer';
@@ -5,10 +6,16 @@ import { Track } from '@/types';
 import ReactHowler from 'react-howler';
 
 interface AudioMotionVisualizerProps {
-  audioContext: AudioContext | null;
+  audioContext: AudioContext | any;
 currentTrack: Track | null; // Замените any на более конкретный тип, если это возможно
   howlerRef: React.RefObject<ReactHowler>; // Замените any на более конкретный тип, если это возможно
 }
+
+interface ExtendedOptions extends Options {
+  audioCtx?: AudioContext;
+  source?: MediaElementAudioSourceNode;
+}
+
 
 const AudioMotionVisualizer: React.FC<AudioMotionVisualizerProps> = ({
   audioContext,
@@ -22,7 +29,7 @@ const AudioMotionVisualizer: React.FC<AudioMotionVisualizerProps> = ({
 
   useEffect(() => {
     if (!audioContext || !currentTrack || !howlerRef.current) return;
-    const options: Options = {
+    const options: ExtendedOptions = {
       alphaBars: false,
       ansiBands: false,
       barSpace: 0.1,
@@ -33,7 +40,7 @@ const AudioMotionVisualizer: React.FC<AudioMotionVisualizerProps> = ({
       fftSize: 8192,
       fillAlpha: 1,
       frequencyScale: 'mel',
-      gradient: 'rainbow',
+      gradient: 'orangered',
       gravity: 20,
       ledBars: false,
       linearAmplitude: false,
@@ -56,7 +63,7 @@ const AudioMotionVisualizer: React.FC<AudioMotionVisualizerProps> = ({
       peakLine: true,
       radial: true,
       radialInvert: false,
-      radius: 0.01,
+      radius: 0.02,
       reflexAlpha: 0.3,
       reflexBright: 1.3,
       reflexFit: true,
@@ -68,7 +75,7 @@ const AudioMotionVisualizer: React.FC<AudioMotionVisualizerProps> = ({
       showScaleX: false,
       showScaleY: false,
       smoothing: 0.7,
-      spinSpeed: 3,
+      spinSpeed: 2,
       splitGradient: false,
       trueLeds: false,
       weightingFilter: '',
@@ -104,7 +111,7 @@ const AudioMotionVisualizer: React.FC<AudioMotionVisualizerProps> = ({
     };
   }, [audioMotion, howlerRef, currentTrack]);
 
-  return <div className="pointer-events-none w-full top-0 right-0 md:scale-150 blur-xl" id="container" ref={containerRef}></div>;
+  return <div className="pointer-events-none w-full pt-5 md:scale-150 blur-xl" id="container" ref={containerRef} style={{filter: 'hue-rotate(241deg) blur(24px) brightness(130%)'}}></div>;
 };
 
 export default AudioMotionVisualizer;

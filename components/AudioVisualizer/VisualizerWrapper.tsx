@@ -1,3 +1,4 @@
+ /* eslint-disable */
 import React, { useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { usePlayer } from '@/context/PlayerContext';

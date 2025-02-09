@@ -1,3 +1,5 @@
+
+
 export interface Track {
 	id: number;
 	title: string;
@@ -5,6 +7,8 @@ export interface Track {
 	src: string;
 	cover: string;
 	color?: string; // не обязательный
+	fullSrc: string | 'none';
+	type: 'track';
   }
   
   export interface Playlist {
@@ -13,4 +17,11 @@ export interface Track {
 	cover: string;
 	tracks: Track[];
 	isPlaying: boolean;
+	category: string | 'other' | 'single' | 'album' | 'vibe' | 'playlist';
+	type: 'playlist';
+	colors?: {
+		button?: string; // Добавляем опциональные поля для цветов
+		text?: string;
+		icon?: string;
+	  };
   }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Track } from '@/types';
 import styles from './Player.module.css';
+import Image from 'next/image';
 
 interface PlayerControlsProps {
   currentTrack: Track | null;
@@ -65,7 +66,7 @@ const PlayerControls: React.FC<PlayerControlsProps> = ({
           </button>
 
           <div className={styles.playerInfo}>
-            <img src={currentTrack.cover} alt={currentTrack.title} width={40} height={40} />
+            <Image src={currentTrack.cover} alt={currentTrack.title} width={40} height={40} />
             <div className={styles.trackInfo}>
               <div className={styles.trackTitle}>{currentTrack.title}</div>
               <div className={styles.trackArtist}>{currentTrack.artist}</div>

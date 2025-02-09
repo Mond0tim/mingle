@@ -10,7 +10,7 @@ import React, {
 } from 'react';
 import ReactHowler from 'react-howler';
 import { Track, Playlist } from '@/types';
-import { initialTracks, initialPlaylists } from '@/lib/data';
+import { initialTracks, initialPlaylists } from '@/data/data';
 
 interface PlayerContextProps {
   currentTrack: Track | null;
@@ -41,6 +41,7 @@ interface PlayerContextProps {
   setHowlerState: (state: string) => void; // Добавлено
   isMuted: boolean;
   toggleMute: () => void;
+  sendNotification: (track: Track) => void;
 }
 
 const PlayerContext = createContext<PlayerContextProps | undefined>(undefined);
@@ -55,6 +56,8 @@ export const usePlayer = () => {
 
 interface PlayerProviderProps {
   children: React.ReactNode;
+  initialTracks: Track[];
+  initialPlaylists: Playlist[];
 }
 
 export const PlayerProvider: React.FC<PlayerProviderProps> = ({
@@ -145,13 +148,15 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({
       }
     };
 
-    if (howlerRef.current && howlerRef.current.howler) {
+    const currentHowlerRef = howlerRef.current;
+
+    if (currentHowlerRef && currentHowlerRef.howler) {
       // Подписываемся на события изменения состояния
-      howlerRef.current.howler.on('load', handleHowlerStateChange);
-      howlerRef.current.howler.on('play', handleHowlerStateChange);
-      howlerRef.current.howler.on('pause', handleHowlerStateChange);
-      howlerRef.current.howler.on('stop', handleHowlerStateChange);
-      howlerRef.current.howler.on('end', handleHowlerStateChange);
+      currentHowlerRef.howler.on('load', handleHowlerStateChange);
+      currentHowlerRef.howler.on('play', handleHowlerStateChange);
+      currentHowlerRef.howler.on('pause', handleHowlerStateChange);
+      currentHowlerRef.howler.on('stop', handleHowlerStateChange);
+      currentHowlerRef.howler.on('end', handleHowlerStateChange);
 
       // Вызываем обработчик для установки начального состояния
       handleHowlerStateChange();
@@ -159,43 +164,100 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({
 
     // Очистка при размонтировании или смене трека
     return () => {
-      if (howlerRef.current && howlerRef.current.howler) {
-        howlerRef.current.howler.off('load', handleHowlerStateChange);
-        howlerRef.current.howler.off('play', handleHowlerStateChange);
-        howlerRef.current.howler.off('pause', handleHowlerStateChange);
-        howlerRef.current.howler.off('stop', handleHowlerStateChange);
-        howlerRef.current.howler.off('end', handleHowlerStateChange);
+      if (currentHowlerRef && currentHowlerRef.howler) {
+        currentHowlerRef.howler.off('load', handleHowlerStateChange);
+        currentHowlerRef.howler.off('play', handleHowlerStateChange);
+        currentHowlerRef.howler.off('pause', handleHowlerStateChange);
+        currentHowlerRef.howler.off('stop', handleHowlerStateChange);
+        currentHowlerRef.howler.off('end', handleHowlerStateChange);
       }
     };
   }, [howlerRef, currentTrack]);
 
+  const sendNotification = useCallback((track: Track) => {
+    if ('serviceWorker' in navigator && 'Notification' in window) {
+      navigator.serviceWorker.ready.then((registration) => {
+        if (registration.active) {
+          registration.active.postMessage({
+            type: 'TRACK_CHANGE',
+            track: {
+              title: track.title,
+              artist: track.artist,
+              cover: track.cover,
+            },
+            actions: [ // Добавляем actions
+              // Иконки для кнопок
+              { action: 'pause', title: '', icon: '/icons/PlayPlaylistIcon.svg' },
+              { action: 'next', title: '', icon: '/icons/next.svg' },
+              { action: 'prev', title: '', icon: '/icons/previous.svg' }, 
+            ],
+            tag: 'music-player-notification', // Add a tag
+          });
+        }
+      });
+    }
+  }, []);
+
   const playTrack = useCallback(
-    (track: Track, playlist?: Playlist) => {
+    async (track: Track, playlist?: Playlist) => {
       if (howlerRef.current) {
         howlerRef.current.stop();
       }
 
-      setCurrentTrack(track);
+      await setCurrentTrack(track);
+      if (playlist) {
+        await setCurrentPlaylist(playlist);
+        await setTracks(playlist.tracks);
+      }
       setPlaying(true);
 
-      if (playlist) {
-        setCurrentPlaylist(playlist);
-        setTracks(playlist.tracks);
-      }
+      // Отправляем уведомление
+      sendNotification(track);
     },
-    [setCurrentTrack, setPlaying, setCurrentPlaylist, setTracks],
+    [
+      setCurrentTrack,
+      setPlaying,
+      setCurrentPlaylist,
+      setTracks,
+      sendNotification
+    ],
   );
 
-  const playPlaylist = useCallback(
-    (playlist: Playlist) => {
-      setCurrentPlaylist(playlist);
-      setTracks(playlist.tracks);
-      if (playlist.tracks.length > 0) {
-        playTrack(playlist.tracks[0], playlist);
+    const handleOnEnd = useCallback(() => {
+    if (currentTrack && tracks) {
+      const currentTrackIndex = tracks.findIndex(
+        (track) => track.id === currentTrack.id
+      );
+      if (currentTrackIndex < tracks.length - 1) {
+        // Если есть следующий трек, воспроизводим его
+        playTrack(tracks[currentTrackIndex + 1], currentPlaylist ?? undefined);
+      } else {
+        // Если это последний трек в плейлисте, переходим к первому треку
+        if (currentPlaylist) {
+            const firstTrack = currentPlaylist.tracks[0];
+            playTrack(firstTrack, currentPlaylist);
+        } else {
+          setPlaying(false);
+        }
       }
+    } else {
+      // Если нет текущего плейлиста, просто останавливаем воспроизведение
+      setPlaying(false);
+    }
+    }, [currentTrack, tracks, playTrack, currentPlaylist, setPlaying]);
+
+const playPlaylist = useCallback(
+    async (playlist: Playlist) => {
+    await setCurrentPlaylist(playlist);
+    await setTracks(playlist.tracks);
+    if (playlist.tracks.length > 0) {
+        // Запускаем первый трек в плейлисте
+        await playTrack(playlist.tracks[0], playlist);
+        setPlaying(true); // Добавлено: Убедимся, что состояние playing установлено в true
+    }
     },
     [playTrack, setCurrentPlaylist, setTracks],
-  );
+);
 
   const togglePlay = useCallback(() => {
     setPlaying(!playing);
@@ -227,20 +289,34 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({
     }
   }, [currentTrack, tracks, playTrack, currentPlaylist]);
 
-  const handleOnEnd = useCallback(() => {
-    if (currentTrack && tracks) {
-      const currentTrackIndex = tracks.findIndex(
-        (track) => track.id === currentTrack.id
-      );
-      if (currentTrackIndex < tracks.length - 1) {
-        playTrack(tracks[currentTrackIndex + 1], currentPlaylist ?? undefined);
-      } else {
-        setPlaying(false);
-      }
-    } else {
-      setPlaying(false);
-    }
-  }, [currentTrack, tracks, playTrack, currentPlaylist, setPlaying]);
+  useEffect(() => {
+    // Добавляем обработчик сообщений от service worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.addEventListener('message', (event) => {
+            if (event.data && event.data.type === 'NOTIFICATION_ACTION') {
+                const { action } = event.data;
+                switch (action) {
+                case 'prev':
+                    handlePrevTrack();
+                    break;
+                case 'pause':
+                    togglePlay();
+                    break;
+                case 'next':
+                    handleNextTrack();
+                    break;
+                }
+            }
+            });
+        }
+
+    return () => {
+        // Удаляем обработчик при размонтировании
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.removeEventListener('message', () => {});
+        }
+        };
+    }, [handlePrevTrack, handleNextTrack, togglePlay]);
 
   // Добавлено: получаем продолжительность трека, когда он загружен
   useEffect(() => {

@@ -1,3 +1,4 @@
+ /* eslint-disable */
 // audio-worklet-processor.js
 class AudioWorkletProcessor {
     constructor(){

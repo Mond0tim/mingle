@@ -9,6 +9,7 @@ import { Button } from '../Button/Button';
 import NextIcon from '../../public/icons/next.svg'
 import PrevIcon from '../../public/icons/previous.svg'
 import QueueIcon from '../../public/icons/QueueMusic.svg'
+import MoreIcon from '../../public/icons/more.svg'
 import cn from 'classnames'
 import NumberFlow, { NumberFlowGroup } from '@number-flow/react';
 
@@ -104,11 +105,31 @@ const ExpandedControlsDrawer: React.FC<ExpandedControlsDrawerProps> = ({
             />
                 <div className={styles.mobilePlayerInfo}>
                 <div className={styles.trackInfo}>
-                    <div className={styles.trackTitle}>{currentTrack?.title}</div>
-                    <div className={styles.trackArtist}>{currentTrack?.artist}</div>
+              <div className={cn(styles.trackTitle, styles.trackText)}>
+              <span>{currentTrack.title}</span>
+                <div className={styles.marquee} aria-hidden="true">
+                    <div className={styles.marquee__inner}>
+                        <span>{currentTrack.title}</span>
+                        <span>{currentTrack.title}</span>
+                        <span>{currentTrack.title}</span>
+                        <span>{currentTrack.title}</span>
+                    </div>
                 </div>
                 </div>
-                <Button className={styles.otherBtn} view='ghost'>...</Button>
+              <div className={cn(styles.trackArtist, styles.trackText)}>
+              <span>{currentTrack.artist}</span>
+              <div className={styles.marquee} aria-hidden="true">
+              <div className={styles.marquee__inner}>
+                        <span>{currentTrack.artist}</span>
+                        <span>{currentTrack.artist}</span>
+                        <span>{currentTrack.artist}</span>
+                        <span>{currentTrack.artist}</span>
+                    </div>
+                </div>
+                </div>
+            </div>
+                </div>
+                <Button className={styles.otherBtn} view='ghost'><MoreIcon/></Button>
             </div>
             <div className={styles.mobileProgressBlock}>
 

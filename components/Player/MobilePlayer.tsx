@@ -18,7 +18,7 @@ interface MobilePlayerProps {
   onPrevTrack: () => void;
   tracks: Track[];
   onTrackSelect: (track: Track) => void;
-  nextTrack: Track | null;
+
   howlerRef:RefObject<ReactHowler>;
   playlistIsPlaying: Playlist | null;
 }

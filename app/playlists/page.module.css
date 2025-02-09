@@ -1,0 +1,213 @@
+.card_blur {
+	position: relative;
+	overflow:hidden; background:var(--card-blur-background) center no-repeat;
+	background-size:cover;
+	aspect-ratio: 1/1;
+	width:200px;
+	border-radius:30px;
+	display:flex;
+	justify-content: space-around;
+	align-items: flex-end;
+  
+  }
+  
+  .card_blur::before {
+	content: "";
+	position:relative;
+	display:block;
+	bottom:0rem;
+	right:0;
+	width: 100%;
+	color: black;
+	height: 100%;
+	background: url(https://mafiko.top/assets/templ/temlplates/EntranceAnimationForImages-main/img/noise.png), rgba(255, 255, 255, 0);
+	background-size: 130px;
+	background-repeat: repeat;
+	backdrop-filter:blur(20px);
+	/*    mask: linear-gradient(180deg, transparent 0%, black 15%, black 100%), radial-gradient(at top, transparent 0%, transparent 20%,  black 100%); */
+  
+	mask: radial-gradient(ellipse at top center, transparent 0%, black 60%,  black 100%);
+	mask-size:500%;
+	mask-position: top center;
+  
+	display:flex;
+	justify-content: space-around;
+	align-items: flex-end;
+  
+  }
+  
+  .card_text {
+	  position: absolute;
+	  display: grid;
+	  grid-template-columns: 4.5fr 1fr;
+	  align-items: center;
+	  justify-content: center;
+	  z-index: 15;
+	  bottom: 0;
+	  left: 0;
+	  width: -webkit-fill-available;
+	  padding: 0.75rem 0.45rem;
+  
+  } 
+  .button {
+		  -webkit-appearance: none;
+	  -moz-appearance: none;
+	  appearance: none;
+	  border-radius: 50%;
+	  height: 50px;
+	  padding: 10px;
+	  border: 2px solid transparent;
+	  transition: background .2s,color .2s,border-color .2s;
+	  cursor: pointer;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  font-size: 16px;
+	  line-height: 20px;
+	  font-weight: 500;
+  }
+  .card_button {
+	float:right;
+	 font-family: "Jost", sans-serif;
+	font-weight:600;
+	color: var(--card-button-color);
+	background: var(--card-button-background);
+	width: 50px;
+  }
+  
+  .card_button:hover {
+	background:var(--card-button-background-hover);
+  }
+  
+  
+  .blur_card_title {
+	font-family: "Dela Gothic One", sans-serif;
+	font-weight: 400;
+	font-style: normal;
+	
+	
+	font-size: 1.5rem;
+	margin:0;
+	margin-bottom:0.75rem;
+	padding-left:0.3rem;
+	color:var(--card-title-color);
+	 mask-image: linear-gradient(90deg, transparent, #000 2%, #000 85%, transparent 100%);
+	overflow:hidden;
+	white-space: nowrap;
+	   position: relative;
+  /*     display: inline-block; */
+  }
+  
+  .blur_card_title:hover {
+	 mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent 100%);
+  
+  }
+  
+  .blur_card_title > span {
+	  display: inline-block;
+  }
+  
+  .blur_card_title:hover > span {
+	  opacity: 0;
+  }
+  
+  .marquee {
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  width: 100%;
+	  overflow: hidden;
+	  pointer-events: none;
+  }
+  
+  .marquee__inner {
+	  width: fit-content;
+	  display: flex;
+	  position: relative;
+	  --offset: 1rem;
+	  --move-initial: calc(-25% + var(--offset));
+	  --move-final: calc(-50% + var(--offset));
+	  transform: translate3d(var(--move-initial), 0, 0);
+	  animation: marquee 5s linear infinite;
+	  animation-play-state: paused;
+	  opacity: 0;
+	
+  }
+  
+  
+  
+  .blur_card_title:hover .marquee__inner {
+	  
+	  animation-play-state: running;
+	  opacity: 1;
+	  transition-duration: 0.4s;
+  }
+  
+  .marquee span {
+	  text-align: center;
+	  white-space: nowrap;
+	  padding: 0rem 1rem;
+		font-family: "Dela Gothic One", sans-serif;
+	font-weight: 400;
+	font-style: normal;
+	  font-size: 1.5rem;
+  }
+  
+  @keyframes marquee {
+	  0% {
+		  transform: translate3d(var(--move-initial), 0, 0);
+	  }
+  
+	  100% {
+		  transform: translate3d(var(--move-final), 0, 0);
+	  }
+  }
+  
+  
+  
+  
+  
+  .card_name_container::before {
+	  content:"";
+	  position: absolute;
+	  display: block;
+	  z-index: 10;
+	  top: 0;
+	  left: 0;
+	  width: -webkit-fill-available;
+	  padding: 0.75rem 0.55rem;
+	  height:2rem;
+	background:var(--card-name-container-background);
+	  mask: radial-gradient(at 50% 0%, black 30%, transparent 70%,  transparent);
+	  backdrop-filter:blur(5px);
+	  
+  }   
+  .card_name {
+	  position: absolute;
+	  display: block;
+	  z-index: 10;
+	  top: 0;
+	  left: 0;
+	  width: -webkit-fill-available;
+	  padding: 0.75rem 0.55rem;
+		text-align: center;
+	  /* mix-blend-mode: hard-light; */
+	  text-shadow: 0 0 20px black;
+	  color: var(--card-name-color);
+	  font-family: "Jost", sans-serif;
+	  font-weight: 650;
+  }
+  /* 
+  .icon {
+	width:max-content;
+  }
+  .icon svg {
+	transform:scale(1.5);
+  }
+  
+  .icon-outline {
+	border-radius:50%;
+	border: 2px solid rgba(255, 255, 255,0.145);
+  } */
+  
+  

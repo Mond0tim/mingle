@@ -1,4 +1,6 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars 
+ /* eslint-disable */
 import React, { useContext } from 'react';
 import { Playlist } from '@/types';
 import TrackList from '../TrackList/TrackList';

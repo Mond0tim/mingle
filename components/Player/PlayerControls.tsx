@@ -5,16 +5,24 @@ import styles from './Player.module.css';
 import Image from 'next/image';
 // import PlayIcon from '../../public/icons/play.svg'
 // import PauseIcon from '../../public/icons/pause.svg'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import DownloadIcon from '../../public/icons/download.svg'
 import NextIcon from '../../public/icons/next.svg'
 import PrevIcon from '../../public/icons/previous.svg'
 import QueueDrawer from './QueueDrawer';
 import cn from 'classnames'
 import NumberFlow, { NumberFlowGroup } from '@number-flow/react'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Button } from '../Button/Button';
+import MoreIcon from '../../public/icons/more.svg'
 
 interface PlayerControlsProps {
   currentTrack: Track | null;
-  nextTrack: Track | null; // Добавлено для предзагрузки
   playing: boolean;
   duration: number;
   seek: number;
@@ -33,7 +41,6 @@ interface PlayerControlsProps {
 const PlayerControls: React.FC<PlayerControlsProps> = ({
   currentTrack,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  nextTrack,
   playing,
   duration,
   seek,
@@ -114,19 +121,52 @@ const PlayerControls: React.FC<PlayerControlsProps> = ({
               className="rounded-[8px]"
             />
             <div className={styles.trackInfo}>
-              <div className={styles.trackTitle}>{currentTrack.title}</div>
-              <div className={styles.trackArtist}>{currentTrack.artist}</div>
+              <div className={cn(styles.trackTitle, styles.trackText)}>
+              <span>{currentTrack.title}</span>
+                <div className={styles.marquee} aria-hidden="true">
+                    <div className={styles.marquee__inner}>
+                        <span>{currentTrack.title}</span>
+                        <span>{currentTrack.title}</span>
+                        <span>{currentTrack.title}</span>
+                        <span>{currentTrack.title}</span>
+                    </div>
+                </div>
+                </div>
+              <div className={cn(styles.trackArtist, styles.trackText)}>
+              <span>{currentTrack.artist}</span>
+              <div className={styles.marquee} aria-hidden="true">
+              <div className={styles.marquee__inner}>
+                        <span>{currentTrack.artist}</span>
+                        <span>{currentTrack.artist}</span>
+                        <span>{currentTrack.artist}</span>
+                        <span>{currentTrack.artist}</span>
+                    </div>
+                </div>
+                </div>
             </div>
-            <a
-              href={currentTrack.src}
+         
+          </div>
+          <div className={styles.other_controls}>
+          <DropdownMenu>
+      <DropdownMenuTrigger>
+        <Button view='ghost'><MoreIcon/></Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-56 rounded-[25px] p-2 gap-2">
+      <DropdownMenuItem>
+      <a
+              href={currentTrack.fullSrc}
               download={currentTrack.title + '.mp3'}
               className={styles.downloadButton}
               onClick={(e) => e.stopPropagation()}
             >
-              <span className="material-symbols-outlined"><DownloadIcon/></span>
+
+              <span className="material-symbols-outlined"><DownloadIcon/></span> скачать трек
+
             </a>
-          </div>
-          <div className={styles.other_controls}>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+
           <QueueDrawer
             isDrawerOpen={isDrawerOpen}
             setIsDrawerOpen={setIsDrawerOpen}

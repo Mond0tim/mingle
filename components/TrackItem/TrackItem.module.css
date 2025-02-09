@@ -7,7 +7,7 @@
   /* border-bottom: 1px solid #eee; */
   width: 100% !important;
   text-align: left;
-  grid-template-columns: 0.5fr 1fr 0.3fr;
+  grid-template-columns: 4rem 1fr 3rem;
   transition: 0.2s;
   }
   
@@ -23,11 +23,102 @@
     }
   
   .trackTitle {
-	font-weight: bold;
+    font-weight: bold;
+    hyphens: none;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-family: var(--font-oddval);
+    max-width: var(--trackItemMaxWidth);
+    @media (max-width: 768px) {
+      max-width: 8rem;
+      
+    }
   }
   
   .trackArtist {
+
+    hyphens: none;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: var(--trackItemMaxWidth);
+    @media (max-width: 768px) {
+      max-width: 8rem;
+      
+    }
   }
+
+
+
+  
+  .trackTitle.playing {
+     mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent 100%);
+      position: relative;
+
+  }
+  
+  .trackTitle > span {
+      display: inline-block;
+  }
+  
+  
+  .marquee {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+      pointer-events: none;
+  }
+  
+  .marquee__inner {
+      width: fit-content;
+      display: flex;
+      position: relative;
+      --offset: 1rem;
+      --move-initial: calc(-25% + var(--offset));
+      --move-final: calc(-50% + var(--offset));
+      transform: translate3d(var(--move-initial), 0, 0);
+      animation: marquee 5s linear infinite;
+      animation-play-state: paused;
+      opacity: 0;
+    
+  }
+  
+   .marquee__inner {
+      
+      animation-play-state: running;
+      opacity: 1;
+      transition-duration: 0.4s;
+  }
+  
+  .marquee span {
+      text-align: center;
+      white-space: nowrap;
+      padding: 0rem 1rem;
+      width: var(--trackItemSpanWidth, --trackItemMaxWidth);
+      @media (max-width:767px) {
+        width: 100%;
+      }
+  }
+  
+  @keyframes marquee {
+      0% {
+          transform: translate3d(var(--move-initial), 0, 0);
+      }
+  
+      100% {
+          transform: translate3d(var(--move-final), 0, 0);
+      }
+  }
+  
+  
+  
+  
+  
+  
+  
   
   .trackItem img {
 	margin-right: 10px;

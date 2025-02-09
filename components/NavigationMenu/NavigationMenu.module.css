@@ -1,0 +1,230 @@
+.mingle_controls_container {
+    padding: 5px;
+    width: 100%;
+    max-width: 100vw;
+    position: fixed;
+    bottom: 0px;
+    z-index: 4;
+    animation: controlsIn 0.4s ease-in forwards;
+}
+
+@keyframes controlsIn {
+    from {
+        clip-path: inset(0 0 100% 0);
+        
+    }
+    to {
+        clip-path: inset(0 0 0 0);
+    }
+}
+/* .mingle_controls_container.homePageMenu {
+	position: fixed;
+	top:0px;
+	height: fit-content;
+	z-index: 20;
+	max-width: none;
+} */
+
+/* .mingle_controls_container.homePageMenu .mingle_controls {
+
+} */
+.menu_items {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+}
+
+
+.mingle_controls {
+
+height: 100%;
+width: 100%;
+padding:5px;
+
+
+gap: 10px;
+border-radius: 30px;
+border: 1px solid var(--mg-btn-border);
+/*display: grid; backdrop-filter: blur(209px); grid-template-rows: 1fr 1fr 1fr 1fr;*/
+}
+
+
+.mingle_controls_container.homePageMenu .menu_items {
+display: grid;
+grid-template-rows: 1fr;
+grid-template-columns: 1fr 1fr 1fr 1.5fr;
+justify-items: center;
+gap: 5px;
+
+}
+
+
+.mingle_controls_container.homePageMenu .logo{
+	position: fixed;
+    gap: 10px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.logo button{
+	padding: 10px;
+    gap: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.icon svg {
+	width:26px;
+}
+.text svg {
+	width:auto;
+	height: 26px;
+}
+
+.active {
+	background-color: var(--mg-neon) !important;
+    color: var(--mg-background);
+  } 
+  .mobileMenuBackground {
+    background: var(--dominant-color);
+    position: absolute;
+    inset: 0;
+    filter: brightness(0.8);
+    pointer-events: none;
+  }
+  
+  .mobileNavLinks {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+
+  .mobileLogo {
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    padding: 1rem;
+    position: fixed;
+    gap: 10px;
+    z-index: 20;
+    /* width: 100%; */
+    /* backdrop-filter: unset; */
+    filter: drop-shadow(2px 4px 6px var(--mg-background));
+  }
+.activeIconButton {
+    background: var(--dominant-color) !important;
+    color: rgb(224, 208, 244) !important;
+    filter: hue-rotate(16deg);
+}
+
+.activeIconButton svg {
+    mix-blend-mode: color-dodge;
+}
+
+
+  @media (min-width: 640px) {
+
+
+
+    .mingle_controls_container {
+        padding: 5px;
+        width: 100%;
+        max-width: 12rem;
+        position: fixed;
+        bottom: auto;
+        background: transparent;
+    }
+    .mingle_controls_container.homePageMenu {
+        position: fixed;
+        top:0px;
+        height: fit-content;
+        z-index: 20;
+        max-width: none;
+    }
+    
+    .mingle_controls_container.homePageMenu .mingle_controls {
+        width: 100%;
+        padding: 5px;
+       /* grid-template-rows: 1fr 1fr 1fr 1fr;
+       backdrop-filter: blur(209px); */ 
+       gap: 10px;
+        border-radius: 30px;
+        border: 1px solid var(--mg-neon);
+        backdrop-filter: blur(30px);
+        display: grid;
+        grid-template-columns: 1fr 9fr;
+        grid-template-rows: 1fr;
+    }
+    .menu_items {
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr 1fr;
+    }
+    
+    
+    .mingle_controls {
+    
+    height: 100%;
+    width: 100%;
+    padding:5px;
+    
+    
+    gap: 10px;
+    border-radius: 30px;
+    border: 1px solid var(--mg-btn-border);
+    backdrop-filter: blur(20px);
+    /*display: grid; backdrop-filter: blur(209px); grid-template-rows: 1fr 1fr 1fr 1fr;*/
+    }
+    
+    
+    .mingle_controls_container.homePageMenu .menu_items {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1.5fr;
+    justify-items: center;
+    gap: 5px;
+    position: relative;
+    
+    }
+    
+    
+    .mingle_controls_container.homePageMenu .logo{
+        padding: 10px;
+        gap: 10px;
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        position: relative;
+    }
+    
+    .logo button{
+        padding: 10px;
+        gap: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    
+    .icon svg {
+        width:26px;
+    }
+    .text svg {
+        width:auto;
+        height: 26px;
+    }
+    
+    .active {
+        background-color: var(--mg-neon) !important;
+        color: var(--mg-background);
+      } 
+.svg {
+    width: 16px;
+    stroke: currentColor;
+    stroke-width: 6px;
+}
+.navButton {
+    gap: 8px;
+}
+
+}

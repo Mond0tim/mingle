@@ -1,29 +1,25 @@
+ /* eslint-disable */
+
 'use client';
 import React, { useState, useEffect } from 'react';
 import { usePlayer } from '@/context/PlayerContext';
-import Link from 'next/link';
 import { Button } from '@/components/Button/Button';
 import styles from "./page.module.css"
-import LogoIcon from '@/public/icons/LogoIcon.svg'
-import LogoText from '@/public/icons/LogoText.svg'
+
 import OtherPlay from '@/public/icons/playOtherIcon.svg'
 import OtherPause from '@/public/icons/pauseOtherIcon.svg'
 
 
 
 import AudioMotionVisualizer from '@/components/AudioMotionVisualizer/AudioMotionVisualizer';
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuIndicator,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  NavigationMenuViewport,
-} from "@/components/ui/navigation-menu"
+
 import BackgroundCanvas from '@/components/BackgroundCanvas/BackgroundCanvas';
 import { Skeleton } from '@/components/ui/skeleton';
+import { PlaylistsCarousel } from '@/components/PlaylistsCarousel/PlaylistsCarousel';
+
+
+
+
 
 const Home = () => {
   const {
@@ -40,26 +36,26 @@ const Home = () => {
   const [showBackground, setShowBackground] = useState(false);
   const [showVisualizer, setShowVisualizer] = useState(true);
 
-  const wavePlaylist = initialPlaylists.find((p) => p.title === "Волна");
+  const wavePlaylist = initialPlaylists.find((p) => p.category === "vibe");
 
   useEffect(() => {
     let timeoutId: string | number | NodeJS.Timeout | undefined;
-
-    if (wavePlaylist && playlistIsPlaying?.id === wavePlaylist.id && !playing) {
+  
+    if (wavePlaylist && playlistIsPlaying?.category === wavePlaylist.category && playing) {
+      setShowBackground(false);
+    } else {
       timeoutId = setTimeout(() => {
         setShowBackground(true);
       }, 500);
-    } else {
-      setShowBackground(false);
     }
-
+  
     return () => clearTimeout(timeoutId);
   }, [playing, playlistIsPlaying, wavePlaylist]);
 
   useEffect(() => {
     let timeoutId: string | number | NodeJS.Timeout | undefined;
 
-    if (wavePlaylist && playlistIsPlaying?.id === wavePlaylist.id && !playing) {
+    if (wavePlaylist && playlistIsPlaying?.category === wavePlaylist.category && !playing) {
       timeoutId = setTimeout(() => {
         setShowVisualizer(false);
       }, 500); // Задержка 500 миллисекунд
@@ -70,35 +66,28 @@ const Home = () => {
     return () => clearTimeout(timeoutId);
   }, [playing, playlistIsPlaying, wavePlaylist]);
 
+  const CATEGORY_NAMES: Record<string, string> = {
+    vibe: 'По настроению',
+  };
+  
+  const categoryOrder: string[] = ['vibe'];
+  const playlistsByCategory = initialPlaylists.reduce((acc, playlist) => {
+    if (playlist.category === 'vibe') {
+      if (!acc['vibe']) {
+        acc['vibe'] = [];
+      }
+      acc['vibe'].push(playlist);
+    }
+    return acc;
+  }, {} as Record<string, typeof initialPlaylists>);
+    
+
+
   return (
     <>
       <div className={styles.page}>
         <div className={styles.preview}>
-          <div className={styles.mingle_controls_container}>
-          <div className={styles.mingle_controls}>
-            <div className={styles.logo}>
-              <div className={styles.icon}>
-                <LogoIcon/>
-              </div>
-            <div className={styles.text}>
-              <LogoText/>
-            </div>
-          </div>
-        <NavigationMenu>
-          <NavigationMenuList>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger>
-                <Link href="/playlists">плейлисты</Link>
-              </NavigationMenuTrigger>
-              <NavigationMenuContent className='p-5'>
-                <p>список плейлистов</p>
-                <NavigationMenuLink>Link</NavigationMenuLink>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
-</div>
-</div>
+
 <div className={styles.vibe}>
   <h1 className={styles.title}>запусти свой вайб</h1>
   <Skeleton/>
@@ -111,15 +100,15 @@ const Home = () => {
             className={styles.vibe_button}
             onClick={(e) => {
               e.stopPropagation();
-              if (playlistIsPlaying?.id === wavePlaylist.id) {
+              if (playlistIsPlaying?.category === wavePlaylist.category) {
                 togglePlay();
               } else {
-                playPlaylist(wavePlaylist, true);
+                playPlaylist(wavePlaylist);
               }
             }}
           >
             <span className="material-symbols-outlined">
-              {playlistIsPlaying?.id === wavePlaylist.id && playing
+              {playlistIsPlaying?.category === wavePlaylist.category && playing
                 ? <OtherPause/>
                 : <OtherPlay/>
                 }
@@ -130,17 +119,26 @@ const Home = () => {
         </div>
       </div>
       </div>
-      {wavePlaylist && playlistIsPlaying?.id === wavePlaylist.id && showVisualizer ? (
-       <div className={styles.canvas_container} >
-       <AudioMotionVisualizer
-          audioContext={audioContext}
-          currentTrack={currentTrack}
-          howlerRef={howlerRef}
-        />
-        </div>
-      ) : (
-        showBackground && <BackgroundCanvas />
-      )}
+      {wavePlaylist && playlistIsPlaying?.category === wavePlaylist.category && showVisualizer ? (
+  <div className={styles.canvas_container}>
+    <AudioMotionVisualizer
+      audioContext={audioContext}
+      currentTrack={currentTrack}
+      howlerRef={howlerRef}
+    />
+  </div>
+) : null}
+{showBackground && <BackgroundCanvas />}
+
+
+{playlistsByCategory['vibe'] && playlistsByCategory['vibe'].length > 0 && (
+      <div className="my-8 p-2">
+        <h2 className="text-xl font-oddval mb-4 font-geist">
+          {CATEGORY_NAMES['vibe']}
+        </h2>
+        <PlaylistsCarousel playlists={playlistsByCategory['vibe']} />
+      </div>
+    )}
     </>
   );
 };

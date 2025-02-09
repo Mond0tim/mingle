@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans);
   padding-bottom: 10rem;
   box-sizing: border-box;
   overflow-x: hidden;
@@ -15,9 +15,6 @@ body {
   border:none;
 }
 
-* {
-  -webkit-tap-highlight-color: transparent;
-}
 
 @layer utilities {
   .text-balance {
@@ -67,11 +64,24 @@ body {
 
 @layer base {
   * {
+    -webkit-tap-highlight-color: transparent;
     @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
   }
+}
+
+body[data-scroll-locked] {
+  overflow: hidden !important;
+  overscroll-behavior: contain;
+  position: relative !important;
+  padding-left: 0px;
+  padding-top: 0px;
+  padding-right: 0px;
+  margin-left: 0;
+  margin-top: 0;
+  margin-right: 11px !important;
 }
 
 
@@ -94,13 +104,30 @@ body {
   --mg-sub-background:#0f0f23 #1a1a28;
   --md-ripple-pressed-color: #000000;
 */
-
+	--mg-font-size-s: 13vw;
+	--mg-font-size-m: 16vw;
+	--mg-font-size-l: 24vw;
+	--mg-font-size-xl: 26vw;
+	--mg-font-family: widescreen-ex, sans-serif;
+	--mg-font-weight: 900;
+	--mg-content-offset: 20vh;
+	--mg-font-case: uppercase;
+	--mg-color-rep-text: var(--color-text);
+	--mg-color-rep-text-main: var(--color-text);
+	--mg-color-rep-outline: var(--mg-neon);
+	--mg-color-rep-bg: var(--mg-background);
+	/* Adjust these depending on your font */
+	--mg-font-factor: 0.059; 
+	--mg-font-line: 0.745;
 
   
 	/*--midnight-background:#010030;*/
 
 }
 
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-oddval);
+}
 
 
 button {
@@ -113,4 +140,49 @@ svg {
   width:24px;
 }
 
+html {
+  scrollbar-width: thin;
+    scrollbar-color: var(--mg-neon-hover) var(--mg-background);
 
+}
+
+
+
+
+
+
+body *::selection {
+background: var(--mg-neon-hover); /* Safari */
+color: var(--mg-background);
+}
+body *::-moz-selection {
+  background: var(--mg-neon-hover); /* Safari */
+  color: var(--mg-background);
+}
+
+
+
+
+
+
+
+/* app/components/preloader.css */
+.preloader {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: var(--mg-background); /* Цвет фона */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 9999;
+	transition: opacity 0.3s ease-out;
+  }
+  
+  /* При добавлении класса loading-out плавно уменьшаем прозрачность */
+  html.loading-out .preloader {
+	opacity: 0;
+  }
+  

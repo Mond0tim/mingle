@@ -1,0 +1,154 @@
+.searchResults {
+  padding: 10px;
+}
+
+.searchResults ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .searchItem {
+    margin-top: 5px;
+    /* display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    background-color: #f8f8f8;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease; */
+  }
+.trackItemButton {
+  width: 100%;
+  height: 100% !important;
+  display: grid !important;
+  padding: 10px 10px !important;
+  grid-template-columns: 4rem 1fr !important;
+}
+
+.searchItemActive {
+  background-color: #8e3ef0cc;
+  color: var(--mg-background) !important;;
+} 
+
+.searchItemActive:hover {
+    background-color: #7935ccaf !important;
+    color:var(--mg-background) !important;
+    }
+  
+  /* .searchItem:hover {
+    background-color: #eaeaea;
+  }
+  
+  .searchItem a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+  } */
+
+
+  .searchResultCover {
+    margin-right: 10px;
+    border-radius: 9px;
+  }
+  
+  .searchItemContent {
+    /* float: left; */
+    justify-content: left;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    width: 100%;
+    grid-template-areas: 'trackname tracktype'
+'trackartist tracktype';
+  }
+  .trackItemPlaylist {
+    justify-content: left;
+    display: grid;
+    grid-template-columns: 3fr 1fr 4rem;
+    grid-template-rows: 1fr 1fr;
+    width: 100%;
+    grid-template-areas: 'trackname tracktype playButton'
+'trackname tracktype playButton';
+  }
+
+  .searchItemContent a {
+    text-decoration: none;
+  }
+  
+  .searchItemTitle {
+    font-size: 16px;
+    color: #f8ebf9;
+    margin-bottom: 2px;
+    grid-area: trackname;
+    justify-self: left;
+    display: block;
+    align-self: center;
+    font-weight: bold;
+    max-width: 100%;
+    width: auto;
+    hyphens: none;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    
+  }
+
+  .searchItemArtist {
+    grid-area: trackartist;
+    justify-self: flex-start;
+    color:#e4caf5;
+    display: block;
+    align-self: center;
+    max-width: 100%;
+    width: auto;
+    hyphens: none;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  /* .searchItemTitle:hover {
+    text-decoration: underline;
+  } 
+  
+  .searchItemArtist {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 4px;
+  }
+   .playing {
+	background-color: #e6f7ff;
+	border-left: 3px solid #40a9ff; 
+  }*/
+  .searchItemType {
+    font-size: 12px;
+    color: #ebcef7;
+    text-transform: uppercase;
+    grid-area: tracktype;
+    font-size: 12px;
+    color: #ebcef7;
+    text-transform: uppercase;
+    grid-area: tracktype;
+    justify-self: center;
+    align-self: center;
+  }
+
+ .playButton {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--mg-neon);
+  border-radius: 50%;
+  justify-self: center;
+  grid-area: playButton;
+  transition: 0.3s;
+  align-self: center;
+ }
+
+ .playButton:hover {
+  background: var(--mg-neon-hover);
+ }

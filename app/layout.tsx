@@ -1,14 +1,14 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter } from 'next/font/google';
 import './globals.css';
 import { PlayerProvider } from '@/context/PlayerContext';
 import PlayerWrapper from '@/components/PlayerWrapper';
-import { initialTracks, initialPlaylists } from '@/lib/data';
+import { initialTracks, initialPlaylists } from '@/data/data';
 import localFont from "next/font/local";
-
+import NavigationMenu from '@/components/NavigationMenu/NavigationMenu';
+import Preloader from '@/components/Preloader/Preloader';
 
 export const viewport: Viewport = {
-  themeColor: '#1356e9',
+  themeColor: '#0c0312',
 }
 
 const geistSans = localFont({
@@ -37,6 +37,12 @@ const Raydis = localFont({
 export const metadata: Metadata = {
   title: 'Mingle',
   description: 'Ваш музыкальный плеер',
+  generator: "Next.js",
+  manifest: "/manifest.json",
+  openGraph: {
+    images: '/preview.png',
+    title: 'Mingle',
+  }
 };
 
 export default function RootLayout({
@@ -45,8 +51,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ru" >
       <body className={`${geistSans.variable} ${Oddval.variable} ${Raydis.variable} ${OddvalItalic.variable} ${geistMono.variable} antialiased`}>
+      <NavigationMenu />
+        <Preloader/>
         <PlayerProvider initialTracks={initialTracks} initialPlaylists={initialPlaylists}>
           <PlayerWrapper>{children}</PlayerWrapper>
         </PlayerProvider>

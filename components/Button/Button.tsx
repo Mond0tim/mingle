@@ -6,7 +6,7 @@ import cn from 'classnames';
 import React from 'react';
 import Ripple from "material-web-components-react/ripple";
 import FocusRing from "material-web-components-react/focus-ring";
-import { Geist, Geist_Mono, Jost, Pixelify_Sans,  } from 'next/font/google';
+import { Jost, Pixelify_Sans,  } from 'next/font/google';
 
 const pixelifySans = Pixelify_Sans({ subsets: ['latin', 'cyrillic' ]})
 const jost = Jost({ subsets: ['latin', 'cyrillic' ]})

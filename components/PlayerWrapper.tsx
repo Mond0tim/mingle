@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 
 import { usePlayer } from '@/context/PlayerContext';
-import { initialTracks, initialPlaylists } from '@/lib/data';
+import { initialTracks, initialPlaylists } from '@/data/data';
 import Player from './Player/Player';
 
 interface PlayerWrapperProps {

@@ -1,3 +1,4 @@
+ /* eslint-disable */
 import React, { useRef, useEffect, useCallback } from 'react';
 import AudioMotionAnalyzer, { Options, CanvasDrawInfo } from 'audiomotion-analyzer';
 

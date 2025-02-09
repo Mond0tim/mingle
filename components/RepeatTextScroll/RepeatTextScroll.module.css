@@ -1,0 +1,51 @@
+.size_s {
+	--size: var(--mg-font-size-s);
+}
+
+.size_m {
+	--size: var(--mg-font-size-m);
+}
+
+.size_l {
+	--size: var(--mg-font-size-l);
+}
+
+.size_xl {
+	--size: var(--mg-font-size-xl);
+}
+
+.content__title {
+	font-size: var(--mg-size);
+	margin: 0;
+	display: grid;
+	font-family: var(--mg-font-family);
+	font-weight: var(--mg-font-weight);
+	text-transform: var(--mg-font-case);
+	cursor: default;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.left {
+	margin-right: auto;
+}
+
+.right {
+	margin-left: auto;
+}
+
+.text_rep span {
+	color: var(--mg-color-rep-text-main);
+	grid-area: 1 / 1 / 2 / 2;
+	background: var(--mg-color-rep-bg);
+	line-height: var(--mg-font-line);
+	padding-bottom: calc(var(--mg-font-factor)* var(--mg-size));
+	will-change: transform;
+}
+
+.text_rep span:not(:last-child) {
+	color: var(--mg-color-rep-text);
+}

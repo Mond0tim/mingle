@@ -1,0 +1,49 @@
+.preloader_group {
+	display: flex;
+	flex-direction: row;
+	gap:4vw;
+	overflow: hidden;
+}
+
+.text {
+	overflow: hidden;
+	animation: TextIn 0.3s ease-in-out forwards;
+	width: fit-content;
+}
+
+@keyframes TextIn {
+	from {
+		opacity: 0;
+		/* filter: blur(5px); */
+		transform: translateX(-100%);
+	}
+	to {
+		opacity: 1;
+		/* filter: blur(0px); */
+		transform: translateX(0%);
+	}
+	
+}
+
+.logo {
+	animation: LogoIn 0.3s ease-in-out forwards;
+}
+
+@keyframes LogoIn {
+	from {
+		transform: translateX(100%) scale(0.8);
+	}
+	to {
+		transform: translateX(0%) scale(1);
+	}
+}
+
+.text svg {
+	height:8vw;
+	width: auto;
+}
+
+.logo svg {
+	height:9vw;
+	width: auto;
+}

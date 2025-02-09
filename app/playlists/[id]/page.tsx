@@ -1,49 +1,40 @@
-'use client';
-import { Playlist } from '@/types';
-import { usePlayer } from '@/context/PlayerContext';
-import { initialPlaylists } from '@/lib/data';
+// app/playlists/[id]/page.tsx
 
-import styles from './Page.module.css'
-import TrackList from '@/components/TrackList/TrackList';
+import { initialPlaylists } from '@/data/data';
+import PlaylistPageClient from './PlaylistPageClient';
+import { Metadata } from 'next';
 
-const PlaylistPage = ({ params }: { params: { id: string } }) => {
-  const { playTrack, playPlaylist, playlistIsPlaying, togglePlay, currentTrack, playing } = usePlayer(); // Добавили playing
-  const playlistId = parseInt(params.id, 10);
+type Props = {
+  params: { id: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
 
-  // Ищем плейлист по ID
-  const playlist = initialPlaylists.find((p) => p.id === playlistId);
+export async function generateMetadata(
+  { params }: Props,
+): Promise<Metadata> {
+    const playlistId = parseInt(params.id, 10);
+    const playlist = initialPlaylists.find((p) => p.id === playlistId);
 
-  if (!playlist) {
-    return <div>Playlist not found</div>;
-  }
 
-  return (
-    <div>
-      <h1>{playlist.title}</h1>
-      <img src={playlist.cover} alt={playlist.title} width={200} height={200} />
+    // optionally access and extend (rather than replace) parent metadata
 
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          if (playlistIsPlaying?.id === playlist.id) {
-            togglePlay();
-          } else {
-            playPlaylist(playlist, false);
-          }
-        }}
-      >
-        <span className="material-symbols-outlined">
-          {playlistIsPlaying?.id === playlist.id && playing ? 'pause_circle' : 'play_circle'}
-        </span>
-      </button>
 
-      {playlistIsPlaying?.id === playlist.id && (
-        <span className={styles.playing}>Now Playing: {currentTrack?.title}</span>
-      )}
+    if (!playlist) {
+        return {
+            title: `Playlist not found`,
+            description: "Explore amazing music playlists.",
+        };
+    }
 
-      <TrackList tracks={playlist.tracks} onTrackSelect={(track) => playTrack(track, playlist)} currentTrack={currentTrack} />
-    </div>
-  );
+    return {
+        title: `${playlist.title} `,
+        description: "Explore amazing music playlists.",
+    };
+}
+
+
+const PlaylistPage = ({ params, searchParams }: Props) => {
+  return <PlaylistPageClient params={params} searchParams={searchParams} />;
 };
 
 export default PlaylistPage;
