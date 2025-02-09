@@ -11,6 +11,8 @@ import OtherPause from '@/public/icons/pauseOtherIcon.svg'
 
 
 
+// ЕСТЬ ВОЗМОЖНОСТЬ СЛОМАТЬ ДАННЫЙ КОД, ПРОСЬБА НЕ ТРОГАТЬ ЕГО!!!!!!!!!!!!!
+
 import AudioMotionVisualizer from '@/components/AudioMotionVisualizer/AudioMotionVisualizer';
 
 import BackgroundCanvas from '@/components/BackgroundCanvas/BackgroundCanvas';
