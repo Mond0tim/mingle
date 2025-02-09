@@ -1,7 +1,7 @@
 
 # mingle 🎵
 
-[![Превью](\public\preview.png)](https://mingle.ti-web.ru)
+[![Превью](/public/preview.png)](https://mingle.ti-web.ru)
 
 ## Краткое описание
 
